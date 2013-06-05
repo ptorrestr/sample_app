@@ -9,4 +9,9 @@ FactoryGirl.define do
       admin true
     end
   end
+
+  factory :search do
+    query "Lorem ipsum"
+    user
+  end
 end

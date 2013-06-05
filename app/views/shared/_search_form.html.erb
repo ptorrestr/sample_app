@@ -1,0 +1,7 @@
+<%= form_for(@search) do |f| %>>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.text_area :query, placeholder: "Compose new search... " %>
+  </div>
+  <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+<% end %>

@@ -15,5 +15,10 @@ namespace :db do
                    password: password,
                    password_confirmation: password)
     end
+    users = Users.all(limit: 6)
+    50.times do
+      query = Faker::Lorem.sentence(5)
+      users.each { |user| Search.create!(query: query, user_id: user.id ) }
+    end
   end
 end

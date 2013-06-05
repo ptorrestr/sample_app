@@ -83,6 +83,17 @@ describe "Authentication" do
         end
 
       end
+
+      describe "in the Searches controller" do
+        describe "submitting to the create action" do
+          before { post searches_path }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+        describe "submitting to the destroy action" do
+          before { delete search_path(FactoryGirl.create(:search)) }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+      end
     end
 
     describe "as wrong user" do
