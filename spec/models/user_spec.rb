@@ -17,6 +17,7 @@ describe User do
   it { should respond_to(:authenticate) }
   it { should respond_to(:admin) }
   it { should respond_to(:searches) }
+  it { should respond_to(:credentials) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -118,10 +119,12 @@ describe User do
   describe "search associations" do
     before { @user.save }
     let!(:older_search) do
-      FactoryGirl.create(:search, user: @user, created_at: 1.day.ago)
+      @credential = FactoryGirl.create(:credential, user: @user, name: "older")
+      FactoryGirl.create(:search, user: @user, created_at: 1.day.ago, credential: @credential)
     end
     let!(:newer_search) do
-      FactoryGirl.create(:search, user: @user, created_at: 1.hour.ago)
+      @credential = FactoryGirl.create(:credential, user: @user, name: "newer")
+      FactoryGirl.create(:search, user: @user, created_at: 1.hour.ago, credential: @credential)
     end
     
     it "should have the right searches in the right order" do
@@ -139,11 +142,36 @@ describe User do
 
     describe "status" do
       let(:unfollowed_post) do
-        FactoryGirl.create(:search, user: FactoryGirl.create(:user))
+        @credential = FactoryGirl.create(:credential, user: @user)
+        FactoryGirl.create(:search, user: FactoryGirl.create(:user), credential: @credential)
       end
       its(:feed) { should include(newer_search) }
       its(:feed) { should include(older_search) }
       its(:feed) { should_not include(unfollowed_post) }
+    end
+  end
+
+  #Credentials
+  describe "credentials associations" do
+    before { @user.save }
+    let!(:older_credential) do
+      FactoryGirl.create(:credential, user: @user, created_at: 1.day.ago, name: "older")
+    end
+    let!(:newer_credential) do
+      FactoryGirl.create(:credential, user: @user, created_at: 1.hour.ago, name: "newer")
+    end
+
+    it "should have the right credentials in the right order" do
+      expect(@user.credentials.to_a).to eq [newer_credential, older_credential]
+    end
+
+    it "should detroy associated credentials" do
+      credentials = @user.credentials.to_a
+      @user.destroy
+      expect(credentials).not_to be_empty
+      credentials.each do |credential|
+        expect(Credential.where(id: credential.id)).to be_empty
+      end
     end
   end
 end

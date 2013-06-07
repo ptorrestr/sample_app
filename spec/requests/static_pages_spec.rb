@@ -12,9 +12,10 @@ describe "Static pages" do
 
     describe "for signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
+      let(:credential) { FactoryGirl.create(:credential, user: user) }
       before do
-        FactoryGirl.create(:search, user: user, query: "Lorem ipsum")
-        FactoryGirl.create(:search, user: user, query: "Dolor sit amet")
+        FactoryGirl.create(:search, user: user, query: "Lorem ipsum", credential: credential)
+        FactoryGirl.create(:search, user: user, query: "Dolor sit amet", credential: credential)
         sign_in user
         visit root_path
       end

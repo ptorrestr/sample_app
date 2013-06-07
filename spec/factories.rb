@@ -13,5 +13,14 @@ FactoryGirl.define do
   factory :search do
     query "Lorem ipsum"
     user
+    credential
+  end
+
+  factory :credential do
+    consumer "foobar"
+    consumer_secret "foobar"
+    access "foobar"
+    access_secret "foobar"
+    name "foobar"
   end
 end

@@ -48,6 +48,7 @@ describe "Authentication" do
 
     describe "for non-signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
+      let(:credential) { FactoryGirl.create(:credential, user: user) }
       
       describe "when attempting to visit a protected page" do
         before do
@@ -90,7 +91,18 @@ describe "Authentication" do
           specify { expect(response).to redirect_to(signin_path) }
         end
         describe "submitting to the destroy action" do
-          before { delete search_path(FactoryGirl.create(:search)) }
+          before { delete search_path(FactoryGirl.create(:search, credential: credential)) }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+      end
+
+      describe "in the Credentials controller" do
+        describe "submitting to the create action" do
+          before { post credentials_path }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+        describe "submitting to the destroy action" do
+          before { delete credential_path(FactoryGirl.create(:credential, user: user)) }
           specify { expect(response).to redirect_to(signin_path) }
         end
       end

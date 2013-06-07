@@ -20,7 +20,7 @@ class SearchesController < ApplicationController
 
   private
     def search_params
-      params.require(:search).permit(:query)
+      params.require(:search).permit(:query, :credential_id)
     end
     def correct_user
       @search = current_user.searches.find_by(id: params[:id])

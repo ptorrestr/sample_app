@@ -19,6 +19,14 @@ module SessionsHelper
   def current_user?(user)
     user == current_user
   end
+
+  def admin_user
+    @admin_user ||= User.first
+  end
+
+  def admin_user?
+    current_user == admin_user
+  end
   
   def signed_in_user
     unless signed_in?

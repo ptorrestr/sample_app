@@ -3,6 +3,9 @@
   <span class="timestamp">
     Started <%= time_ago_in_words(search.created_at) %> ago.
   </span>
+  <span class="timestamp">
+    Using credential number <% search.credential_id %>.
+  </span>
   <% if current_user?(search.user) %>
     <%= link_to "delete", search, method: :delete,
                                   data: { confirm: "Are you sure?" },

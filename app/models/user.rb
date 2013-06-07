@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :credentials, dependent: :destroy
   has_many :searches, dependent: :destroy
   before_save { self.email = email.downcase }
   before_save :create_remember_token

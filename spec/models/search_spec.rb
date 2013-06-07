@@ -2,19 +2,30 @@ require 'spec_helper'
 
 describe Search do
   let(:user) { FactoryGirl.create(:user)}
-  before { @search = user.searches.build(query: "Lorem ipsum") }
+  let(:credential) { FactoryGirl.create(:credential, user: user) }
+  before do
+    @search = user.searches.build(query: "Lorem ipsum", credential: credential)
+  end
 
   subject { @search }
 
   it { should respond_to(:query) }
   it { should respond_to(:user_id) }
+  it { should respond_to(:credential_id) }
   it { should respond_to(:user) }
+  it { should respond_to(:credential) }
   its(:user) { should eq user }
+  its(:credential) { should eq credential }
 
   it { should be_valid }
 
   describe "when user_id is not present" do
     before { @search.user_id = nil }
+    it { should_not be_valid }
+  end
+
+  describe "when credential_id is not present" do
+    before { @search.credential_id = nil }
     it { should_not be_valid }
   end
 
@@ -27,4 +38,5 @@ describe Search do
     before { @search.query = "a" * 141 }
     it { should_not be_valid}
   end
+
 end

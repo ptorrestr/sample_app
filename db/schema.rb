@@ -11,13 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130604181356) do
+ActiveRecord::Schema.define(version: 20130606102034) do
+
+  create_table "credentials", force: true do |t|
+    t.string   "consumer"
+    t.string   "consumer_secret"
+    t.string   "access"
+    t.string   "access_secret"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.string   "name_user"
+  end
+
+  add_index "credentials", ["user_id", "created_at"], name: "index_credentials_on_user_id_and_created_at"
 
   create_table "searches", force: true do |t|
     t.string   "query"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "credential_id"
   end
 
   add_index "searches", ["user_id", "created_at"], name: "index_searches_on_user_id_and_created_at"

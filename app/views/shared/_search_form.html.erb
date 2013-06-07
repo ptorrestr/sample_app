@@ -2,6 +2,11 @@
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <%= f.text_area :query, placeholder: "Compose new search... " %>
+    <% if Credential.find_by_user_id(current_user.id).nil? %>
+      Please add credential first
+    <% else %>
+      <%= collection_select(:search, :credential_id, Credential.where(user_id: current_user.id), :id, :name, :prompt => true) %>
+    <% end %>
   </div>
   <%= f.submit "Post", class: "btn btn-large btn-primary" %>
 <% end %>
