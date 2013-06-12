@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130606102034) do
+ActiveRecord::Schema.define(version: 20130612132915) do
 
   create_table "credentials", force: true do |t|
     t.string   "consumer"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20130606102034) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "credential_id"
+    t.integer  "searchrest_id"
   end
 
   add_index "searches", ["user_id", "created_at"], name: "index_searches_on_user_id_and_created_at"

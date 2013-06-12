@@ -12,6 +12,7 @@ FactoryGirl.define do
 
   factory :search do
     query "Lorem ipsum"
+    searchrest_id 1
     user
     credential
   end

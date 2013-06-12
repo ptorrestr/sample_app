@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/rails/activeresource.git
+  revision: bde9bda036c1b05988f779cc89f6f01b11d2b73c
+  specs:
+    activeresource (4.0.0.beta1)
+      activemodel (>= 4.0.0.beta1)
+      activesupport (>= 4.0.0.beta1)
+      rails-observers (~> 0.1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -57,7 +66,7 @@ GEM
       capybara (>= 1.1.2)
       cucumber (>= 1.1.8)
       nokogiri (>= 1.5.0)
-    database_cleaner (1.0.0.RC1)
+    database_cleaner (1.0.1)
     diff-lcs (1.2.4)
     erubis (2.7.0)
     execjs (1.4.0)
@@ -69,10 +78,10 @@ GEM
       railties (>= 3.0.0)
     faker (1.1.2)
       i18n (~> 0.5)
-    ffi (1.8.1)
+    ffi (1.9.0)
     gherkin (2.12.0)
       multi_json (~> 1.3)
-    hike (1.2.2)
+    hike (1.2.3)
     i18n (0.6.4)
     jbuilder (1.0.2)
       activesupport (>= 3.0.0)
@@ -85,9 +94,11 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.23)
+    mini_portile (0.5.0)
     minitest (4.7.4)
-    multi_json (1.7.4)
-    nokogiri (1.5.9)
+    multi_json (1.7.6)
+    nokogiri (1.6.0)
+      mini_portile (~> 0.5.0)
     polyglot (0.3.3)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -100,6 +111,8 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.0.0.rc1)
       sprockets-rails (~> 2.0.0.rc4)
+    rails-observers (0.1.1)
+      railties (~> 4.0.0.beta)
     railties (4.0.0.rc1)
       actionpack (= 4.0.0.rc1)
       activesupport (= 4.0.0.rc1)
@@ -148,7 +161,7 @@ GEM
     thread_safe (0.1.0)
       atomic
     tilt (1.4.1)
-    treetop (1.4.12)
+    treetop (1.4.14)
       polyglot
       polyglot (>= 0.3.1)
     turbolinks (1.1.1)
@@ -165,6 +178,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activeresource!
   bcrypt-ruby (= 3.0.1)
   bootstrap-sass (= 2.3.1.0)
   bootstrap-will_paginate (= 0.0.9)
