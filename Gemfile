@@ -8,6 +8,8 @@ gem 'faker', '1.1.2'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 gem 'activeresource', github: 'rails/activeresource'
+#gem 'libv8', '3.16.14.1'
+#gem 'ref', '1.0.5'
 
 group :development, :test do
   gem 'sqlite3', '1.3.7'
