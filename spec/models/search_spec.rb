@@ -12,9 +12,9 @@ describe Search do
   it { should respond_to(:query) }
   it { should respond_to(:user_id) }
   it { should respond_to(:credential_id) }
-  it { should respond_to(:searchrest_id) }
   it { should respond_to(:user) }
   it { should respond_to(:credential) }
+  it { should respond_to(:tweets) }
   its(:user) { should eq user }
   its(:credential) { should eq credential }
 

@@ -7,8 +7,6 @@ class SearchesController < ApplicationController
     if @search.save
       @searchrest = fill_searchrest(@search)
       if @searchrest.save
-        @search.searchrest_id = @searchrest.id
-        @search.save
         flash[:success] = "Search created!"
         redirect_to root_url
       else
@@ -24,7 +22,7 @@ class SearchesController < ApplicationController
 
   def destroy
     @search.destroy
-    @searchrest = find_searchrest(@search.searchrest_id)
+    @searchrest = find_searchrest(@search.id)
     if not @searchrest.blank?
       @searchrest.destroy
     end
@@ -35,6 +33,7 @@ class SearchesController < ApplicationController
     def search_params
       params.require(:search).permit(:query, :credential_id)
     end
+
     def correct_user
       @search = current_user.searches.find_by(id: params[:id])
       redirect_to root_url if @search.nil?
@@ -43,12 +42,12 @@ class SearchesController < ApplicationController
     def fill_searchrest(search)
       if not search.credential.blank?
         searchrest = Searchrest.build()
+        searchrest.id = search.id
         searchrest.query = search.query
         searchrest.consumer = search.credential.consumer
         searchrest.consumer_secret = search.credential.consumer_secret
         searchrest.access = search.credential.access
         searchrest.access_secret = search.credential.access_secret
-        searchrest.search_id = search.id
         return searchrest
       else
         return false

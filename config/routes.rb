@@ -1,4 +1,5 @@
 SampleApp::Application.routes.draw do
+  get "tweets/index"
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :searches, only: [:create, :destroy]

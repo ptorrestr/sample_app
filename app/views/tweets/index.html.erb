@@ -1,0 +1,7 @@
+<h1>Last tweets for search '<%= @search.query %>' </h1>
+<h2><%= link_to "Back", root_path %> ---- <%= link_to "Reload", {:controller => "tweets", :action => "index", :search => @search.id } %></h2>
+<% if @tweets.any? %>
+  <ol class="searches">
+    <%= render partial: 'tweets_item', collection: @search.tweets %>
+  </ol>
+<% end %>

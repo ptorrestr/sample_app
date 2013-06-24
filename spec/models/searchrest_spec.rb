@@ -3,34 +3,52 @@ require 'spec_helper'
 describe Searchrest do
   before do
     @searchrest = Searchrest.build()
+    @searchrest.id = 1
+    @searchrest.query = "query foo bar"
+    @searchrest.consumer = "consumer foo bar"
+    @searchrest.consumer_secret = "consumer secret foo bar"
+    @searchrest.access = "access foo bar"
+    @searchrest.access_secret = "access foo bar"
   end
 
   subject { @searchrest }
 
+  it { should respond_to(:id) }
   it { should respond_to(:query) }
   it { should respond_to(:consumer) }
   it { should respond_to(:consumer_secret) }
   it { should respond_to(:access) }
   it { should respond_to(:access_secret) }
-  it { should respond_to(:search_id) }
   
   it { should be_valid }
 
+  describe "when query is not present" do
+    before { @searchrest.query = " " }
+    it { should_not be_valid }
+  end
+
+  describe "when consumer is not present" do
+    before { @searchrest.consumer = " " }
+    it { should_not be_valid }
+  end
+
+  describe "when consumer_secret is not present" do
+    before { @searchrest.consumer_secret = " " }
+    it { should_not be_valid }
+  end
+
+  describe "when access is not present" do
+    before { @searchrest.access = " " }
+    it { should_not be_valid }
+  end
+
+  describe "when access_secret is not present" do
+    before { @searchrest.access_secret = " " }
+    it { should_not be_valid }
+  end
+
   describe "manipulate searchrest element" do
     before do
-      @max = 0
-      @collection = Searchrest.find(:all)
-      @collection.each do |elem|
-        if elem.search_id > @max
-          @max = elem.search_id
-        end
-      end
-      @searchrest.query = "query foo"
-      @searchrest.consumer = "consumer foo"
-      @searchrest.consumer_secret = "consumer secret foo"
-      @searchrest.access = "access foo"
-      @searchrest.access_secret = "access secret foo"
-      @searchrest.search_id = (@max+1)
       @searchrest.save
     end
 
@@ -40,11 +58,6 @@ describe Searchrest do
 
     it "find non-existing element" do
       expect(Searchrest.exists?(1000)).to eq false
-    end
-
-    describe "find existing element" do
-      before { @element = Searchrest.find(@searchrest.id) }
-      it { should eq @element }
     end
 
     describe "update element" do
@@ -60,12 +73,9 @@ describe Searchrest do
       end
     end
 
-    describe "delete element" do
-      before do
-        @id = @searchrest.id
-        Searchrest.find(@id).destroy
-      end
-      it { expect(Searchrest.exists?(@id)).to eq false }
+    after do
+      @searchrest.destroy
+      #expect(Searchrest.exists?(@searchrest.id)).to eq false }
     end
   end
 end
