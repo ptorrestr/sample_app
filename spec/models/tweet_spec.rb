@@ -2,10 +2,16 @@ require 'spec_helper'
 
 describe Tweet do
   before do
+    @twitteruser = Twitteruser.build()
+    @twitteruser.id = 1
+    @twitteruser.created_at = "date text"
+    @twitteruser.name = "user name"
+
     @tweet = Tweet.build()
     @tweet.id = 1
     @tweet.created_at = "date text"
     @tweet.text = "twitter text foo bar"
+    @tweet.user_id = @twitteruser.id
   end
 
   subject { @tweet }
@@ -29,7 +35,6 @@ describe Tweet do
   it { should respond_to(:retweeted) }
   it { should respond_to(:retweet_count) }
   it { should respond_to(:user_id) }
-  it { should respond_to(:user_name) } 
   
   it { should be_valid }
 
@@ -46,7 +51,7 @@ describe Tweet do
 
   describe "manipulate tweet" do
     before do
-      @tweet.text = "other twitter text foo bar"
+      @twitteruser.save
       @tweet.save
     end
 
@@ -76,6 +81,7 @@ describe Tweet do
 
     after do
       @tweet.destroy
+      @twitteruser.destroy
     end
   end
 end

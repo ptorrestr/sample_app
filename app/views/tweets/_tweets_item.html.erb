@@ -1,5 +1,8 @@
 <li id="<%= tweets_item.id %>">
-  <span class="user"><%= tweets_item.user_name %></span>
+  <%= twitter_image_for(tweets_item) %>
+  <span class="user">
+    <%= link_to tweets_item.twitteruser.screen_name, "https://twitter.com/" + tweets_item.twitteruser.screen_name %>
+  </span>
   <span class="query"><%= tweets_item.text %></span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(tweets_item.created_at) %> ago.
