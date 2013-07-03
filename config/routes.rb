@@ -2,7 +2,7 @@ SampleApp::Application.routes.draw do
   get "tweets/index"
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  resources :searches, only: [:create, :destroy]
+  resources :searches, only: [:create, :destroy, :index]
   resources :credentials
   root to: 'static_pages#home'
   match '/signup',  to: 'users#new',            via: 'get'

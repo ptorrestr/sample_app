@@ -11,7 +11,7 @@ describe Tweet do
     @tweet.id = 1
     @tweet.created_at = "date text"
     @tweet.text = "twitter text foo bar"
-    @tweet.user_id = @twitteruser.id
+    @tweet.user = @twitteruser.id
   end
 
   subject { @tweet }
@@ -34,7 +34,7 @@ describe Tweet do
   it { should respond_to(:contributors) }
   it { should respond_to(:retweeted) }
   it { should respond_to(:retweet_count) }
-  it { should respond_to(:user_id) }
+  it { should respond_to(:user) }
   
   it { should be_valid }
 

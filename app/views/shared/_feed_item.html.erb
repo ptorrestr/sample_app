@@ -18,5 +18,6 @@
                                      remot: true, 
                                      class: "alert" %>
     <%= link_to "tweets", {:controller => "tweets", :action => "index", :search => feed_item.id } %>
+    <%= link_to "get data", {:controller => "searches", :action => "index", :id => feed_item.id } %>
   <% end %>
 </li>

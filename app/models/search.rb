@@ -1,4 +1,6 @@
 require 'active_resource'
+require 'csv'
+require 'json'
 
 class Search < ActiveRecord::Base
   belongs_to :user
@@ -12,8 +14,13 @@ class Search < ActiveRecord::Base
     @collection = []
     #This method only retreive the last ten tweets
     Tweetsearch.find(:all, :params => {:search_id => id }).each do |tweetsearch|
-        @collection << Tweet.find(tweetsearch.tweet_id)
+        @collection << Tweet.find(tweetsearch.tweet)
     end
     return @collection
+  end
+
+  def all_tweets
+    #Get all tweets for this collection
+    @collection = Tweet.find(:all, :params => {:search_id => id })
   end
 end

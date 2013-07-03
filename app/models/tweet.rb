@@ -6,9 +6,9 @@ class Tweet < ActiveResource::Base
   self.password = "perroCallejero"
   validates :created_at,  presence: true, length: { maximum: 100 }
   validates :text, presence: true, length: { maximum: 140 }
-  validates :user_id, presence: true
+  validates :user, presence: true
 
   def twitteruser
-    Twitteruser.find(user_id)
+    Twitteruser.find(user)
   end
 end

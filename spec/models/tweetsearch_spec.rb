@@ -8,8 +8,8 @@ describe Tweetsearch do
   subject { @tweetsearch }
 
   it { should respond_to(:id) }
-  it { should respond_to(:tweet_id) }
-  it { should respond_to(:search_id) }
+  it { should respond_to(:tweet) }
+  it { should respond_to(:search) }
   
   it { should be_valid }
 
@@ -24,12 +24,21 @@ describe Tweetsearch do
       @searchrest.access_secret = "access secret foo"
       @searchrest.save
 
+      @user = Twitteruser.build()
+      @user.id = 1
+      @user.created_at = "date"
+      @user.name = "name1"
+      @user.save
+
       @tweet = Tweet.build()
       @tweet.id = 1
+      @tweet.created_at = "date"
+      @tweet.text = "value"
+      @tweet.user = @user.id
       @tweet.save
 
-      @tweetsearch.tweet_id = @tweet.id
-      @tweetsearch.search_id = @searchrest.id
+      @tweetsearch.tweet = @tweet.id
+      @tweetsearch.search = @searchrest.id
       @tweetsearch.save
     end
 
@@ -44,6 +53,7 @@ describe Tweetsearch do
     after do
       @searchrest.destroy
       @tweet.destroy
+      @user.destroy
       #automatically destroyed when searchrest and tweet are destroyed
       #@tweetsearch.destroy
     end

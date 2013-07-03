@@ -15,6 +15,8 @@ describe Search do
   it { should respond_to(:user) }
   it { should respond_to(:credential) }
   it { should respond_to(:tweets) }
+  it { should respond_to(:all_tweets) }
+  it { should respond_to(:all_tweets_csv) }
   its(:user) { should eq user }
   its(:credential) { should eq credential }
 

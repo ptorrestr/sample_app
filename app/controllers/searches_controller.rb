@@ -1,6 +1,6 @@
 class SearchesController < ApplicationController
-  before_action :signed_in_user, only: [:create, :destroy]
-  before_action :correct_user, only: :destroy
+  before_action :signed_in_user, only: [:create, :destroy, :index]
+  before_action :correct_user, only: [:destroy, :index]
 
   def create
     @search = current_user.searches.build(search_params)
@@ -27,6 +27,36 @@ class SearchesController < ApplicationController
       @searchrest.destroy
     end
     redirect_to root_url
+  end
+
+  def index
+    @tweets = @search.all_tweets
+    csv_string = CSV.generate do |csv|
+      @tweets.each do |tweet|
+        csv << [tweet.id, 
+                tweet.created_at, 
+                tweet.favorited, 
+                tweet.text,
+                tweet.in_reply_to_screen_name,
+                tweet.in_reply_to_user_id,
+                tweet.in_reply_to_status_id,
+                tweet.truncated,
+                tweet.source,
+                tweet.urls,
+                tweet.user_mentions,
+                tweet.hashtags,
+                tweet.geo,
+                tweet.place,
+                tweet.coordinates,
+                tweet.contributors,
+                tweet.retweeted,
+                tweet.retweet_count]
+      end
+    end 
+    # send it to the browsah
+    send_data csv_string, 
+                :type => 'text/csv; charset=iso-8859-1; header=present', 
+                :disposition => "attachment; filename=tweets.csv"   
   end
 
   private
