@@ -1,3 +1,5 @@
+require 'csv'
+
 class SearchesController < ApplicationController
   before_action :signed_in_user, only: [:create, :destroy, :index]
   before_action :correct_user, only: [:destroy, :index]
@@ -53,7 +55,7 @@ class SearchesController < ApplicationController
                 tweet.retweet_count]
       end
     end 
-    # send it to the browsah
+    # send it to the browser
     send_data csv_string, 
                 :type => 'text/csv; charset=iso-8859-1; header=present', 
                 :disposition => "attachment; filename=tweets.csv"   

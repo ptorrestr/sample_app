@@ -1,6 +1,4 @@
 require 'active_resource'
-require 'csv'
-require 'json'
 
 class Search < ActiveRecord::Base
   belongs_to :user
@@ -22,5 +20,9 @@ class Search < ActiveRecord::Base
   def all_tweets
     #Get all tweets for this collection
     @collection = Tweet.find(:all, :params => {:search_id => id })
+  end
+
+  def get_searchrun
+    Searchrun.find(:first, :params => {:search => id })
   end
 end

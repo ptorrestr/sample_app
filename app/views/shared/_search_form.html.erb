@@ -1,6 +1,8 @@
 <%= form_for(@search) do |f| %>>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
+    Need help for query? 
+    <%= link_to "Look here", help_path %>
     <%= f.text_area :query, placeholder: "Compose new search... " %>
     <% if Credential.find_by_user_id(current_user.id).nil? %>
       Please add credential first

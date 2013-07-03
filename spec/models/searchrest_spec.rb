@@ -75,7 +75,6 @@ describe Searchrest do
 
     after do
       @searchrest.destroy
-      #expect(Searchrest.exists?(@searchrest.id)).to eq false }
     end
   end
 end
