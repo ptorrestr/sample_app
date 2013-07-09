@@ -1,3 +1,5 @@
+require 'csv'
+
 class TweetsController < ApplicationController
   before_action :correct_search, only: :index
 
