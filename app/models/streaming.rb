@@ -1,6 +1,6 @@
 require 'active_resource'
 
-class Search < ActiveRecord::Base
+class Streaming < ActiveRecord::Base
   belongs_to :user
   belongs_to :credential
   default_scope -> { order('created_at DESC') }
@@ -10,15 +10,16 @@ class Search < ActiveRecord::Base
 
   def tweets
     #This method only retreive the last ten tweets
-    @collection = Tweet.find(:all, :params => {:search_id => id, :last => 1})
+    @collection = Tweet.find(:all, :params => {:streaming_id => id, :last => 1})
   end
 
   def all_tweets
     #Get all tweets for this collection
-    @collection = Tweet.find(:all, :params => {:search_id => id })
+    @collection = Tweet.find(:all, :params => {:streaming_id => id })
   end
 
-  def get_searchrun
-    Searchrun.find(:first, :params => {:search_id => id })
+  def get_streamingrun
+    Streamingrun.find(:first, :params => {:streaming_id => id })
   end
+
 end

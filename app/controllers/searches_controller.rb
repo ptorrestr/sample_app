@@ -1,8 +1,11 @@
-require 'csv'
-
 class SearchesController < ApplicationController
   before_action :signed_in_user, only: [:create, :destroy, :index]
-  before_action :correct_user, only: [:destroy, :index]
+  before_action :correct_user, only: [:destroy]
+
+  def index
+    @search = current_user.searches.build
+    @searches = current_user.searches.paginate(page: params[:page])
+  end
 
   def create
     @search = current_user.searches.build(search_params)
@@ -10,15 +13,16 @@ class SearchesController < ApplicationController
       @searchrest = fill_searchrest(@search)
       if @searchrest.save
         flash[:success] = "Search created!"
-        redirect_to root_url
+        redirect_to searches_path
       else
         @search.destroy
-        @feed_items = []
-        render 'static_pages/home'
+        #is this line correct? original: @feed_items = []
+        @searches = current_user.searches.paginate(page: params[:page])
+        render 'index'
       end
     else
-      @feed_items = []
-      render 'static_pages/home'
+      @searches = current_user.searches.paginate(page: params[:page])
+      render 'index'
     end
   end
 
@@ -28,47 +32,17 @@ class SearchesController < ApplicationController
     if not @searchrest.blank?
       @searchrest.destroy
     end
-    redirect_to root_url
-  end
-
-  def index
-    @tweets = @search.all_tweets
-    csv_string = CSV.generate do |csv|
-      @tweets.each do |tweet|
-        csv << [tweet.id, 
-                tweet.created_at, 
-                tweet.favorited, 
-                tweet.text,
-                tweet.in_reply_to_screen_name,
-                tweet.in_reply_to_user_id,
-                tweet.in_reply_to_status_id,
-                tweet.truncated,
-                tweet.source,
-                tweet.urls,
-                tweet.user_mentions,
-                tweet.hashtags,
-                tweet.geo,
-                tweet.place,
-                tweet.coordinates,
-                tweet.contributors,
-                tweet.retweeted,
-                tweet.retweet_count]
-      end
-    end 
-    # send it to the browser
-    send_data csv_string, 
-                :type => 'text/csv; charset=iso-8859-1; header=present', 
-                :disposition => "attachment; filename=tweets.csv"   
+    redirect_to searches_path
   end
 
   private
     def search_params
-      params.require(:search).permit(:query, :credential_id)
+      params.require(:search).permit(:query, :credential_id, :kind)
     end
 
     def correct_user
       @search = current_user.searches.find_by(id: params[:id])
-      redirect_to root_url if @search.nil?
+      redirect_to searches_path if @search.nil?
     end
 
     def fill_searchrest(search)

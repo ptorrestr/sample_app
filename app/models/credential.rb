@@ -1,6 +1,7 @@
 class Credential < ActiveRecord::Base
   belongs_to :user
   has_many :search, dependent: :destroy
+  has_many :streaming, dependent: :destroy
   before_validation :create_name_user_token
   default_scope -> { order('created_at DESC') }
   validates :consumer, presence: true

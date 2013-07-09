@@ -1,13 +1,13 @@
-<%= form_for(@search) do |f| %>>
+<%= form_for(@streaming) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-    Need help for query? 
+    <br>Need help for compose streaming search? 
     <%= link_to "Look here", help_path %>
-    <%= f.text_area :query, placeholder: "Compose new search... " %>
+    <%= f.text_area :query, placeholder: "Compose new streaming search... " %>
     <% if Credential.find_by_user_id(current_user.id).nil? %>
       Please add credential first
     <% else %>
-      <%= collection_select(:search, :credential_id, Credential.where(user_id: current_user.id), :id, :name, :prompt => true) %>
+      <%= collection_select(:streaming, :credential_id, Credential.where(user_id: current_user.id), :id, :name, :prompt => 'Please select credential') %>
     <% end %>
   </div>
   <%= f.submit "Post", class: "btn btn-large btn-primary" %>

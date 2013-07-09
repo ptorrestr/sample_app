@@ -1,14 +1,15 @@
 <% provide(:title, 'Help') %>
 <h1>Help</h1>
-<h2>Queries</h2>
+<h3>Historical search</h3>
 <p>
-  There are a number of operators you can use to modify the behavior of query 
+  There are a number of operators you can use to modify the behavior of query. 
+  Remember that this kind of search is always querying about old tweets. Twitter API limited historical search up 1 week ago. <%= link_to "More info", "https://dev.twitter.com/docs/faq#8650" %> 
 </p>
 <ol class="searches">
   <table>
     <thead>
       <tr>
-        <th>Example operation</th>
+        <th>Operation</th>
         <th>Matched tweets...</th>
       <tr>
     </thead>
@@ -48,3 +49,66 @@
     </tbody>
   </table>
 </ol>
+<br>
+<br>
+<h3>Streaming search</h3>
+<p>A comma-separated list of phrases which will be used to determine what Tweets will be delivered on the stream.  A phrase may be one or more terms separated by spaces, and a phrase will match if all of the terms in the phrase are present in the Tweet, regardless of order and ignoring case.  By this model, you can think of commas as logical ORs, while spaces are equivalent to logical ANDs (e.g. ‘<tt>the twitter</tt>’ is <tt>the AND twitter</tt>, and ‘<tt>the,twitter</tt>’ is <tt>the OR twitter</tt>).</p>
+<p>The text of the Tweet and some entity fields are considered for matches.  Specifically, the <tt>text</tt> attribute of the Tweet, <tt>expanded_url</tt> and <tt>display_url</tt> for links and media, <tt>text</tt> for hashtags, and <tt>screen_name</tt> for user mentions are checked for matches.</p>
+<p>Each phrase must be between 1 and 60 bytes, inclusive.</p>
+<p>Exact matching of phrases (equivalent to quoted phrases in most search engines) is not supported.</p>
+<p>Punctuation and special characters will be considered part of the term they are adjacent to.  In this sense, "hello." is a different track term than "hello".  However, matches will ignore punctuation present in the Tweet.  So "hello" will match both "hello world" and "my brother says hello."  Note that punctuation is not considered to be part of a #hashtag or @mention, so a track term containing punctuation will not match either #hashtags or @mentions.</p>
+<p>UTF-8 characters will match exactly, even in cases where an "equivalent" ASCII character exists.  For example, "touché" will not match a Tweet containing "touche".</p>
+<p>Non-space separated languages, such as CJK and Arabic, are currently unsupported.</p>
+<p>URLs are considered words for the purposes of matches which means that the entire domain and path must be included in the track query for a Tweet containing an URL to match.  Note that <tt>display_url</tt> does not contain a protocol, so this is not required to perform a match.</p>
+<p>Twitter currently canonicalizes the domain "www.example.com" to "example.com" before the match is performed, so omit the "www" from URL track terms.</p>
+<p>If you need more help <%= link_to "see this", "https://dev.twitter.com/docs/streaming-apis/keyword-matching" %> </p>
+<p>Track examples:</p>
+<table>
+  <tr>
+    <th>Parameter value</th><th>Will match...</th><th>Will not match...</th>
+  </tr>
+  <tr>
+    <td>Twitter</td>
+    <td>TWITTER
+      <br>twitter
+      <br>"Twitter"
+      <br>twitter.
+      <br>#twitter
+      <br>@twitter
+      <br>http://twitter.com
+    </td>
+    <td>
+      TwitterTracker<br>#newtwitter
+    </td>
+  </tr>
+  <tr>
+    <td>Twitter's</td>
+    <td>I like Twitter's new design</td>
+    <td>Someday I'd like to visit @Twitter's office</td>
+  </tr>
+  <tr>
+    <td>twitter api,twitter streaming</td>
+    <td>The Twitter API is awesome
+      <br>The twitter streaming service is fast
+      <br>Twitter has a streaming API
+    </td>
+    <td>I'm new to Twitter</td>
+  </tr>
+  <tr>
+    <td>example.com</td>
+    <td>Someday I will visit example.com</td>
+    <td>There is no example.com/foobarbaz</td>
+  </tr>
+  <tr>
+    <td>example.com/foobarbaz</td>
+    <td>example.com/foobarbaz
+      <br>www.example.com/foobarbaz
+    </td>
+    <td>example.com</td>
+  </tr>
+  <tr>
+    <td>www.example.com/foobarbaz</td>
+    <td>.</td>
+    <td>www.example.com/foobarbaz</td>
+  </tr>
+</table>

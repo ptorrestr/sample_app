@@ -1,7 +1,15 @@
-<h1>Last tweets for search '<%= @search.query %>' </h1>
-<h2><%= link_to "Back", root_path %> ---- <%= link_to "Reload", {:controller => "tweets", :action => "index", :search => @search.id } %></h2>
+<h1>Last tweets for search '<%= @collection.query %>' </h1>
+<h2>
+  <% if @valid_search %>
+    <%= link_to "Back", searches_path %> ---- 
+    <%= link_to "Reload", {:controller => "tweets", :action => "index", :search => @collection.id, :kind => "search" } %>
+  <% else %>
+    <%= link_to "Back", streamings_path %> ----
+    <%= link_to "Reload", {:controller => "tweets", :action => "index", :streaming => @collection.id, :kind => "streaming" } %>
+  <% end %>
+</h2>
 <% if @tweets.any? %>
   <ol class="searches">
-    <%= render partial: 'tweets_item', collection: @search.tweets %>
+    <%= render partial: 'tweets_item', collection: @collection.tweets %>
   </ol>
 <% end %>

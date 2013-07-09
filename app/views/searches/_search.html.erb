@@ -1,14 +1,32 @@
 <li>
+  <span class="user">
+    <%= link_to search.user.name, search.user %>
+  </span>
   <span class="query"><%= search.query %></span>
   <span class="timestamp">
     Started <%= time_ago_in_words(search.created_at) %> ago.
   </span>
   <span class="timestamp">
-    Using credential number <% search.credential_id %>.
+    Using credential <%= search.credential.name %>.
   </span>
-  <% if current_user?(search.user) %>
-    <%= link_to "delete", search, method: :delete,
-                                  data: { confirm: "Are you sure?" },
-                                  title: search.query %>
-  <% end %>
+  <span class="actions">
+    Actions: 
+    <% if current_user?(search.user) %>
+      <% if search.get_searchrun %>
+        <%= link_to "stop", searchrun_path(@searchrun, :id => search.get_searchrun.id), :method => :delete %>
+      <% else %>
+        <%= link_to "start", searchruns_path(@searchrun, :search => search.id), :method => :post %>
+      <% end %>
+      |
+      <%= link_to "tweets", {:controller => "tweets", :action => "index", :search => search.id, :kind => "search"} %>
+      |
+      <%= link_to "get data", {:controller => "tweets", :action => "index", :search => search.id, :kind => "search", :format => :csv } %>
+      |
+      <%= link_to "delete", search, method: :delete,
+                                     data: { confirm: "Are you sure?" },
+                                     title: search.query,
+                                     remot: true, 
+                                     class: "alert" %>
+    <% end %>
+  </span>
 </li>

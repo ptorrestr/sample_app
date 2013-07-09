@@ -1,0 +1,32 @@
+<li>
+  <span class="user">
+    <%= link_to streaming.user.name, streaming.user %>
+  </span>
+  <span class="query"><%= streaming.query %></span>
+  <span class="timestamp">
+    Started <%= time_ago_in_words(streaming.created_at) %> ago.
+  </span>
+  <span class="timestamp">
+    Using credential <%= streaming.credential.name %>.
+  </span>
+  <span class="actions">
+    Actions: 
+    <% if current_user?(streaming.user) %>
+      <% if streaming.get_streamingrun %>
+        <%= link_to "stop", streamingrun_path(@streamingrun, :id => streaming.get_streamingrun.id), :method => :delete %>
+      <% else %>
+        <%= link_to "start", streamingruns_path(@streamingrun, :streaming => streaming.id), :method => :post %>
+      <% end %>
+      |
+      <%= link_to "tweets", {:controller => "tweets", :action => "index", :streaming => streaming.id, :kind => "streaming"} %>
+      |
+      <%= link_to "get data", {:controller => "tweets", :action => "index", :streaming => streaming.id, :kind => "streaming", :format => :csv } %>
+      |
+      <%= link_to "delete", streaming, method: :delete,
+                                     data: { confirm: "Are you sure?" },
+                                     title: streaming.query,
+                                     remot: true, 
+                                     class: "alert" %>
+    <% end %>
+  </span>
+</li>

@@ -4,12 +4,12 @@ class SearchrunsController < ApplicationController
 
   def create
     @searchrun = Searchrun.new(searchrun_params)
-    @search.save
+    #@search.save
     if @searchrun.save
       flash[:success] = "Starting search!"
-      redirect_to root_url
+      redirect_to searches_path
     else
-      render 'static_pages/home'
+      render 'index'
     end
   end
 
@@ -17,13 +17,13 @@ class SearchrunsController < ApplicationController
     @searchrun = find_searchrun(params[:id])
     @searchrun.destroy
     flash[:success] = "search stoped"
-    redirect_to root_url
+    redirect_to searches_path
   end
 
   private
     def correct_user
       @search = current_user.searches.find_by(id: params[:search])
-      redirect_to root_url if @search.nil?
+      redirect_to searches_path if @search.nil?
     end
 
     def searchrun_params

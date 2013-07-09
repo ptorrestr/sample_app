@@ -1,0 +1,19 @@
+<% provide(:title, 'Searches') %>
+<h1>Historical search</h1>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <%= render 'shared/user_info' %>
+    </section>
+    <section>
+      <%= render 'search_form' %>
+    </section>
+  </aside>
+  <div class="span8">
+    <%= will_paginate %>
+    <ol class="searches">
+      <%= render @searches %>
+    </ol>
+    <%= will_paginate %>
+  </div>
+</div>

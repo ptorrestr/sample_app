@@ -10,18 +10,27 @@
   <span class="timestamp">
     Using credential <%= feed_item.credential.name %>.
   </span>
-  <% if current_user?(feed_item.user) %>
-    <% if feed_item.get_searchrun %>
-      <%= link_to "stop", searchrun_path(@searchrun, :id => feed_item.get_searchrun.id), :method => :delete %>
-    <% else %>
-      <%= link_to "start", searchruns_path(@searchrun, :search => feed_item.id), :method => :post %>
-    <% end %>
-    <%= link_to "tweets", {:controller => "tweets", :action => "index", :search => feed_item.id } %>
-    <%= link_to "get data", {:controller => "searches", :action => "index", :id => feed_item.id } %>
-    <%= link_to "delete", feed_item, method: :delete,
+  <span class="timestamp">
+    Type <%= feed_item.kind %>.
+  </span>
+  <span class="actions">
+    Actions: 
+    <% if current_user?(feed_item.user) %>
+      <% if feed_item.get_searchrun %>
+        <%= link_to "stop", searchrun_path(@searchrun, :id => feed_item.get_searchrun.id), :method => :delete %>
+      <% else %>
+        <%= link_to "start", searchruns_path(@searchrun, :search => feed_item.id), :method => :post %>
+      <% end %>
+      |
+      <%= link_to "tweets", {:controller => "tweets", :action => "index", :search => feed_item.id, :kind => "search" } %>
+      |
+      <%= link_to "get data", {:controller => "searches", :action => "index", :id => feed_item.id } %>
+      |
+      <%= link_to "delete", feed_item, method: :delete,
                                      data: { confirm: "Are you sure?" },
                                      title: feed_item.query,
                                      remot: true, 
                                      class: "alert" %>
-  <% end %>
+    <% end %>
+  </span>
 </li>
