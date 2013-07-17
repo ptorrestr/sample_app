@@ -1,14 +1,20 @@
 <%= form_for(@search) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-    <br>Need help for compose search? 
-    <%= link_to "Look here", help_path %>
+    <br>
+    Enter keyword search terms below. If using multiple keywords please enter 
+    either AND or OR between each keyword.
+    <br>
+    <br>Click 
+    <%= link_to "here", help_path %>  for a more detailed help guide
+    <br>
+    <br>    
     <%= f.text_area :query, placeholder: "Compose new search... " %>
     <% if Credential.find_by_user_id(current_user.id).nil? %>
       Please add credential first
     <% else %>
-      <%= collection_select(:search, :credential_id, Credential.where(user_id: current_user.id), :id, :name, :prompt => 'Please select credential') %>
+      <%= collection_select(:search, :credential_id, Credential.where(user_id: current_user.id), :id, :name, :prompt => 'Please select credentials') %>
     <% end %>
   </div>
-  <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+  <%= f.submit "Search", class: "btn btn-large btn-primary" %>
 <% end %>

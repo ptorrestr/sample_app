@@ -6,10 +6,16 @@
       <%= render 'shared/user_info' %>
     </section>
     <section>
+      <%= render 'shared/search_links' %>
+    </section>
+    <section>
       <%= render 'search_form' %>
     </section>
   </aside>
   <div class="span8">
+    <p>
+      The historical search allows you to collect tweets from the past. To retrieve historical tweets simply enter some keywords in the search box below. This returns relevant tweets from the Twitter search API. The search API allows you to search tweets from the present time back to one week in the past and it will not continue to collect live streaming tweets.
+    </p>
     <%= will_paginate %>
     <ol class="searches">
       <%= render @searches %>

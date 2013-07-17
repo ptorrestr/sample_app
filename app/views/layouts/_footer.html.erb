@@ -2,12 +2,22 @@
   <small>
     Developed by Pablo Torres using 
     <a href="http://rubyonrails.org/">Rails</a>
+    <br>
+    <br>
+    <%= link_to image_tag("HuJo-Logo3_.jpg"), "http://hujo.deri.ie" %>
+    ......
+    <%= link_to image_tag("DERI_.jpg"), "http://www.deri.ie" %>
   </small>
   <nav>
     <ul>
-      <li><%= link_to "About",   about_path %></li>
-      <li><%= link_to "Contact", contact_path %></li>
-      <li><a href="http://hujo.deri.ie/">Hujo</a></li>
+      <li><!-- Button to trigger modal -->
+        <a href="#modalAbout" data-toggle="modal">About</a>
+      </li>
+      <li><%= link_to "Contact", "http://hujo.deri.ie/contact" %></li>
+      <li><%= link_to "Hujo", "http://hujo.deri.ie" %></li>
+      <br>
+      <br>
+        <%= link_to image_tag("SFI_cropped_.jpg"), "http://www.sfi.ie" %>
     </ul>
   </nav>
 </footer>

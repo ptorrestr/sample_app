@@ -6,10 +6,16 @@
       <%= render 'shared/user_info' %>
     </section>
     <section>
+      <%= render 'shared/search_links' %>
+    </section>
+    <section>
       <%= render 'streaming_form' %>
     </section>
   </aside>
   <div class="span8">
+    <p>
+      The streaming search allows you to collect live tweets in real time. To retrieve streaming tweets simply enter some keywords in the search box below. This returns relevant tweets from the Twitter streaming API. The streaming search will return tweets starting from the time the search begins as they come in until you decide to stop the search.
+    </p>
     <%= will_paginate %>
     <ol class="streamings">
       <%= render @streamings %>

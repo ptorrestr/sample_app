@@ -10,23 +10,32 @@
     Using credential <%= streaming.credential.name %>.
   </span>
   <span class="actions">
-    Actions: 
     <% if current_user?(streaming.user) %>
       <% if streaming.get_streamingrun %>
-        <%= link_to "stop", streamingrun_path(@streamingrun, :id => streaming.get_streamingrun.id), :method => :delete %>
+        <%= link_to '<i class="icon-stop icon-black"></i>'.html_safe, streamingrun_path(@streamingrun, :id => streaming.get_streamingrun.id), :method => :delete, class: "btn btn-small", data: {toggle: "tooltip"}, title: "Stop tweets collection" %>
       <% else %>
-        <%= link_to "start", streamingruns_path(@streamingrun, :streaming => streaming.id), :method => :post %>
+        <%= link_to '<i class="icon-play icon-black"></i>'.html_safe, streamingruns_path(@streamingrun, :streaming => streaming.id), :method => :post, class: "btn btn-small", data: {toggle: "tooltip"}, title: "Start tweets collection" %>
       <% end %>
-      |
-      <%= link_to "tweets", {:controller => "tweets", :action => "index", :streaming => streaming.id, :kind => "streaming"} %>
-      |
-      <%= link_to "get data", {:controller => "tweets", :action => "index", :streaming => streaming.id, :kind => "streaming", :format => :csv } %>
-      |
-      <%= link_to "delete", streaming, method: :delete,
-                                     data: { confirm: "Are you sure?" },
-                                     title: streaming.query,
-                                     remot: true, 
-                                     class: "alert" %>
-    <% end %>
+      <%= link_to '<i class="icon-eye-open icon-black"></i>'.html_safe, {:controller => "tweets", :action => "index", :streaming => streaming.id, :kind => "streaming"}, class: "btn btn-small", data: {toggle: "tooltip"}, title: "See last tweets retrieved" %>
+      <%= link_to '<i class="icon-download icon-black"></i>'.html_safe, {:controller => "tweets", :action => "index", :streaming => streaming.id, :kind => "streaming", :format => :csv }, class: "btn btn-small", data: {toggle: "tooltip"}, title: "Download tweet collection" %>
+
+      <!-- Button to trigger modal -->
+      <a href="#modalStreaming" role="button" data-toggle="modal" class="btn btn-small btn-warning" title="Delete collection"> <i class="icon-trash icon-black"></i></a>
+
+      <!-- Modal -->
+      <div id="modalStreaming" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="myModalLabel">Delete collection</h3>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want delete streaming collection?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+          <%= link_to "Delete it", streaming, method: :delete, remot: true, class: "btn btn-small btn-warning" %>
+        </div>
+      </div> 
+    <% end %>  
   </span>
 </li>

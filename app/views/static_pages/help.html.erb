@@ -2,49 +2,59 @@
 <h1>Help</h1>
 <h3>Historical search</h3>
 <p>
-  There are a number of operators you can use to modify the behavior of query. 
-  Remember that this kind of search is always querying about old tweets. Twitter API limited historical search up 1 week ago. <%= link_to "More info", "https://dev.twitter.com/docs/faq#8650" %> 
+  The historical search allows you to use a number of different operators to 
+  help refine your search.
+</p>
+<p>
+  Remember that this kind of search only always querying from the past and is 
+  limited by the twitter search API to retrieving tweets from the last 7 days 
+  only. 
+  <%= link_to "More info", "https://dev.twitter.com/docs/faq#8650" %> 
 </p>
 <ol class="searches">
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th>Operation</th>
-        <th>Matched tweets...</th>
+        <th>Results Returned</th>
       <tr>
     </thead>
     <tbody>
       <tr>
         <td>twitter search</td>
-        <td>Math tweets which containing both "twitter" and "search". This is the default operator</td>
+        <td>Returns all tweets containing both "twitter" and "search"</td>
       </tr>
       <tr>
+        <td>twitter AND search</td>
+        <td>Returns all tweets containing both "twitter" and "search"</td>
+      </tr>  
+      <tr>
         <td>"happy hour"</td>
-        <td>All tweets which containing the exact phrase "happy hour"</td>
+        <td>Returns all tweets which containing the exact phrase "happy hour"</td>
       </tr>
       <tr>
         <td>love OR hate</td>
-        <td>containing either "love" or "hate" (or both)</td>
+        <td>Returns all tweets containing either "love" or "hate" (or both)</td>
       </tr>
       <tr>
         <td>beer -root</td>
-        <td>containing "beer" but not "root"</td>
+        <td>Returns all tweets containing "beer" but not "root"</td>
       </tr>
       <tr>
         <td>#haiku</td>
-        <td>containing the hashtag "haiku"</td>
+        <td>Returns all tweets containing the hashtag "haiku"</td>
       </tr>
       <tr>
         <td>from:user</td>
-        <td>sent from the user @user</td>
+        <td>Returns all tweets sent from the user @user</td>
       </tr>
       <tr>
         <td>to:user</td>
-        <td>sent to the user @user</td>
+        <td>Returns all tweets sent to the user @user</td>
       </tr>
       <tr>
         <td>@user</td>
-        <td>tweet mentioning @user</td>
+        <td>Returns all tweets mentioning @user</td>
       </tr>
     </tbody>
   </table>
@@ -52,21 +62,84 @@
 <br>
 <br>
 <h3>Streaming search</h3>
-<p>A comma-separated list of phrases which will be used to determine what Tweets will be delivered on the stream.  A phrase may be one or more terms separated by spaces, and a phrase will match if all of the terms in the phrase are present in the Tweet, regardless of order and ignoring case.  By this model, you can think of commas as logical ORs, while spaces are equivalent to logical ANDs (e.g. ‘<tt>the twitter</tt>’ is <tt>the AND twitter</tt>, and ‘<tt>the,twitter</tt>’ is <tt>the OR twitter</tt>).</p>
-<p>The text of the Tweet and some entity fields are considered for matches.  Specifically, the <tt>text</tt> attribute of the Tweet, <tt>expanded_url</tt> and <tt>display_url</tt> for links and media, <tt>text</tt> for hashtags, and <tt>screen_name</tt> for user mentions are checked for matches.</p>
-<p>Each phrase must be between 1 and 60 bytes, inclusive.</p>
-<p>Exact matching of phrases (equivalent to quoted phrases in most search engines) is not supported.</p>
-<p>Punctuation and special characters will be considered part of the term they are adjacent to.  In this sense, "hello." is a different track term than "hello".  However, matches will ignore punctuation present in the Tweet.  So "hello" will match both "hello world" and "my brother says hello."  Note that punctuation is not considered to be part of a #hashtag or @mention, so a track term containing punctuation will not match either #hashtags or @mentions.</p>
-<p>UTF-8 characters will match exactly, even in cases where an "equivalent" ASCII character exists.  For example, "touché" will not match a Tweet containing "touche".</p>
-<p>Non-space separated languages, such as CJK and Arabic, are currently unsupported.</p>
-<p>URLs are considered words for the purposes of matches which means that the entire domain and path must be included in the track query for a Tweet containing an URL to match.  Note that <tt>display_url</tt> does not contain a protocol, so this is not required to perform a match.</p>
-<p>Twitter currently canonicalizes the domain "www.example.com" to "example.com" before the match is performed, so omit the "www" from URL track terms.</p>
-<p>If you need more help <%= link_to "see this", "https://dev.twitter.com/docs/streaming-apis/keyword-matching" %> </p>
+<p>
+  The streaming search only allows you to enter keywords or phrases separated by 
+  commas. Here the spaces operate like logical ANDs and the commas like logical 
+  ORs.
+</p>
+<ol class="searches">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Operation</th>
+        <th>Results Returned</th>
+      <tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>twitter search</td>
+        <td>Returns all tweets containing both "twitter" and "search"</td>
+      </tr>
+      <tr>
+        <td>love, hate</td>
+        <td>Returns all tweets containing either "love" or "hate" (or both)</td>
+      </tr>
+    </tbody>
+  </table>
+</ol>
+<br>
+<br>
+<p>
+  The text of the Tweet and some entity fields are considered for matches.  
+  Specifically, the <tt>text</tt> attribute of the Tweet, <tt>expanded_url</tt> 
+  and <tt>display_url</tt> for links and media, <tt>text</tt> for hashtags, and 
+  <tt>screen_name</tt> for user mentions are checked for matches.
+</p>
+<p>
+  Each phrase must be between 1 and 60 bytes, inclusive.
+</p>
+<p>
+  Exact matching of phrases (equivalent to quoted phrases in most search 
+  engines) is not supported.
+</p>
+<p>
+  Punctuation and special characters will be considered part of the term they 
+  are adjacent to.  In this sense, "hello." is a different track term than 
+  "hello".  However, matches will ignore punctuation present in the Tweet.  So 
+  "hello" will match both "hello world" and "my brother says hello."  Note that 
+  punctuation is not considered to be part of a #hashtag or @mention, so a track 
+  term containing punctuation will not match either #hashtags or @mentions.
+</p>
+<p>
+  UTF-8 characters will match exactly, even in cases where an "equivalent" ASCII 
+  character exists.  For example, "touché" will not match a Tweet containing 
+  "touche".
+</p>
+<p>
+  Non-space separated languages, such as CJK and Arabic, are currently 
+  unsupported.
+</p>
+<p>
+  URLs are considered words for the purposes of matches which means that the 
+  entire domain and path must be included in the track query for a Tweet 
+  containing an URL to match.  Note that <tt>display_url</tt> does not contain a 
+  protocol, so this is not required to perform a match.
+</p>
+<p>
+  Twitter currently canonicalizes the domain "www.example.com" to "example.com" 
+  before the match is performed, so omit the "www" from URL track terms.
+</p>
+<p>
+  If you need more help 
+  <%= link_to "see this", "https://dev.twitter.com/docs/streaming-apis/keyword-matching" %>
+</p>
 <p>Track examples:</p>
-<table>
-  <tr>
-    <th>Parameter value</th><th>Will match...</th><th>Will not match...</th>
-  </tr>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Parameter value</th><th>Will match...</th><th>Will not match...</th>
+    </tr>
+  <thead>
   <tr>
     <td>Twitter</td>
     <td>TWITTER

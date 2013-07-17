@@ -1,0 +1,7 @@
+<% if defined? @searches %>
+  <%= link_to "Historical Search", searches_path(current_user), class: "btn btn-small disabled" %>
+  <%= link_to "Streaming Search", streamings_path(current_user), class: "btn btn-small" %>
+<% else %>
+  <%= link_to "Historical Search", searches_path(current_user), class: "btn btn-small" %>
+  <%= link_to "Streaming Search", streamings_path(current_user), class: "btn btn-small disabled" %>
+<% end %>

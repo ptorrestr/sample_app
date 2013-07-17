@@ -8,16 +8,26 @@
     </aside>
     <div class="span8">
       <h3>Welcome back to Quiltro</h3>
-        <p> This App wrapped the Search twitter API and Streaming twitter API.
-        To create new searches, please go to:
-        <br> <%= link_to "Historical search", searches_path(current_user) %>
+        <p>
+          Quiltro allows you to collect tweets using a keyword or set of keywords. To use Quiltro you must first create a Twitter developer account. When you login to quiltro, enter your Twitter dev account details under the 'credentials' tab and then you're ready to start collecting tweets.
+        </p>
+        <p>
+          Once you're set up you can create multiple searches, each of which will collect and save tweets for you directly from the twitter APIs. Quiltro is a valuable tool for anyone searching for tweets regarding specific topics on twitter and can be useful to collect samples for further analysis.
+        </p>
+        <p>
+          Users can carry out two types of search - streaming and historical. The streaming search will return tweets featuring the keywords in real time starting from the moment the search is begun. This returns results from Twitter's streaming API. The historical search returns results from the Twitter search API. This allows users to collect tweets from any time in the previous week, but will not continue to collect future tweets.
+        </p>
+        <br>
+        <p> <h4> Start collecting tweets </h4> 
+        <%= link_to "Historical search", searches_path(current_user) %>
         <br> <%= link_to "Streaming search", streamings_path(current_user) %>
         </p>
       <br>
       <br>
       <h3>Recent news </h3>
         <h4> Quiltro beta version is running </h4>
-        <p> The beta version of Quiltro is now active. You can use it as you want. However, this version is still preliminar and probably you can found bugs out there. If you find some one, please report it here.
+        <p> 
+          The beta version of Quiltro is now active. You can use it as you want. However, this version is still preliminar and probably you can found bugs out there. If you find some one, please report it here.
         </p> 
     </div>
   </div>
@@ -25,11 +35,11 @@
   <div class="center hero-unit">
     <h1>Welcome to Quiltro</h1>
     <%= image_tag("quiltro.jpg", alt: "quiltro") %>
-    <h2>
+    <h4>
       This app is developed by
-      <a href="http://hujo.deri.ie/">hujo</a>
-      project.
-    </h2>
+      <a href="http://hujo.deri.ie/">Digital Humanities and Journalism</a>
+      working group at DERI.
+    </h4>
     <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
   </div>
 <% end %>
