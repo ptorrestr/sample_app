@@ -17,10 +17,11 @@
         <p>
           Users can carry out two types of search - streaming and historical. The streaming search will return tweets featuring the keywords in real time starting from the moment the search is begun. This returns results from Twitter's streaming API. The historical search returns results from the Twitter search API. This allows users to collect tweets from any time in the previous week, but will not continue to collect future tweets.
         </p>
-        <br>
-        <p> <h4> Start collecting tweets </h4> 
-        <%= link_to "Historical search", searches_path(current_user) %>
-        <br> <%= link_to "Streaming search", streamings_path(current_user) %>
+        <h4> Start collecting tweets </h4>
+        <p>  
+          <%= link_to "Historical search", searches_path(current_user) %>
+          <br> 
+          <%= link_to "Streaming search", streamings_path(current_user) %>
         </p>
       <br>
       <br>
