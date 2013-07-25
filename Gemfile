@@ -31,7 +31,9 @@ gem 'coffee-rails', '4.0.0'
 gem 'jquery-rails', '2.2.1'
 gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
-gem 'less-rails-bootstrap', '2.3.3'
+gem 'less-rails'
+gem 'twitter-bootstrap-rails'
+#gem 'less-rails-bootstrap', '2.3.3'
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false
